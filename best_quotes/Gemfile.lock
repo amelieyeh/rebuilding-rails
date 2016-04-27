@@ -1,7 +1,7 @@
 PATH
   remote: ../rulers
   specs:
-    rulers (0.1.0)
+    rulers (0.2.0)
       rack
 
 GEM
