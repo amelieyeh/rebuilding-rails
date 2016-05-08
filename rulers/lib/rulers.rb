@@ -1,6 +1,8 @@
 require "rulers/version"
 require "rulers/array"
 require "rulers/routing"
+require "rulers/util"
+require "rulers/dependencies"
 
 module Rulers
   class Application
@@ -9,7 +11,7 @@ module Rulers
       if env['PATH_INFO'] == '/favicon.ico'
         return [404, {'Content-Type' => 'text/html'}, []]
       end
-      
+
       if env['PATH_INFO'] == '/'
         return [200, {'Content-Type' => 'text/html'}, ["Hello!"]]
       end
