@@ -1,3 +1,4 @@
 require './config/application'
-require './config/const_missing'
+# require './config/bobo'
+# require './config/const_missing'
 run BestQuotes::Application.new
