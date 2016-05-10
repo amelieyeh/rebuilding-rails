@@ -1,7 +1,7 @@
 class Object
   def self.const_missing(c)
-    require "./bobo"
-    Bobo
+    require "./config/#{c}"
+    Object.const_get(c, Object)
   end
 end
 
