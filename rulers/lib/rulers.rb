@@ -7,7 +7,6 @@ require "rulers/controller"
 
 module Rulers
   class Application
-    # `echo debug > debug.txt`
     def call(env)
       if env['PATH_INFO'] == '/favicon.ico'
         return [404, {'Content-Type' => 'text/html'}, []]
