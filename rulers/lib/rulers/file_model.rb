@@ -70,6 +70,13 @@ TEMPLATE
         puts "Exception: #{e.inspect}"
         nil
       end
+
+      def self.find_all_by_submitter(submitter)
+        # possibilities = all
+        all.select do |f|
+          f["submitter"] == submitter
+        end
+      end
     end
   end
 end
