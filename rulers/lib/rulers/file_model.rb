@@ -63,6 +63,13 @@ TEMPLATE
           f.write(MultiJson.dump(@hash))
         end
       end
+
+      def self.find(id)
+        FileModel.new("db/quotes/#{id.to_i}.json")
+      rescue Exception => e
+        puts "Exception: #{e.inspect}"
+        nil
+      end
     end
   end
 end

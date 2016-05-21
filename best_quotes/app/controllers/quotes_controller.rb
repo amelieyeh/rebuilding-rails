@@ -37,6 +37,11 @@ class QuotesController < Rulers::Controller
 		render :quote, :obj => quote_1
 	end
 
+  def show
+    quote = FileModel.find(2)
+    render :quote, :obj => quote
+  end
+
   def exception
     raise "It's a bad one!"
   end
