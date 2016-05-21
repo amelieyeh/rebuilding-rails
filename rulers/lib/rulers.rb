@@ -3,10 +3,10 @@ require "rulers/array"
 require "rulers/routing"
 require "rulers/util"
 require "rulers/dependencies"
+require "rulers/controller"
 
 module Rulers
   class Application
-    # `echo debug > debug.txt`
     def call(env)
       if env['PATH_INFO'] == '/favicon.ico'
         return [404, {'Content-Type' => 'text/html'}, []]
@@ -21,16 +21,6 @@ module Rulers
       text = controller.send(act)
       [200, {'Content-Type' => 'text/html'},
       [text]]
-    end
-  end
-
-  class Controller
-    def initialize(env)
-      @env = env
-    end
-
-    def env
-      @env
     end
   end
 end

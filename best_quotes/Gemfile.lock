@@ -2,11 +2,13 @@ PATH
   remote: ../rulers
   specs:
     rulers (0.2.0)
+      erubis
       rack
 
 GEM
   remote: https://rubygems.org/
   specs:
+    erubis (2.7.0)
     ffi (1.9.10)
     listen (1.3.1)
       rb-fsevent (>= 0.9.3)
