@@ -57,6 +57,12 @@ TEMPLATE
 
         FileModel.new "db/quotes/#{id}.json"
       end
+
+      def save
+        File.open(@filename, "w") do |f|
+          f.write(MultiJson.dump(@hash))
+        end
+      end
     end
   end
 end

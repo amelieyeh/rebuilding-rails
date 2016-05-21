@@ -26,6 +26,17 @@ class QuotesController < Rulers::Controller
     render :quote, :obj => m
   end
 
+	def update_quote
+		# raise "POST route only" unless env["REQUEST_METHOD"] == "POST"
+
+		quote_1 = FileModel.find(1)
+		quote_1["submitter"] = "Jim Carrey the Joker"
+
+		quote_1.save
+
+		render :quote, :obj => quote_1
+	end
+
   def exception
     raise "It's a bad one!"
   end
