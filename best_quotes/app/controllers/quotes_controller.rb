@@ -12,7 +12,8 @@ class QuotesController < Rulers::Controller
 
   def quote_1
     quote_1 = Rulers::Model::FileModel.find(1)
-    render :quote, :obj => quote_1
+    ua = request.user_agent
+    render :quote, :obj => quote_1, :ua => ua
   end
 
   def new_quote
@@ -38,8 +39,9 @@ class QuotesController < Rulers::Controller
 	end
 
   def show
-    quote = FileModel.find(2)
-    render :quote, :obj => quote
+    quote = FileModel.find(params["id"])
+    ua = request.user_agent
+    render_response  :quote, :obj => quote, :ua => ua
   end
 
   def quotes_by_submitter
