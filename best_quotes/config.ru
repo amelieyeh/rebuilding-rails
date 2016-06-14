@@ -6,20 +6,46 @@ run BestQuotes::Application.new
 
 use Rack::ContentType
 
-map "/lobster" do
-  use Rack::ShowExceptions
-  run Rack::Lobster.new
-end
+class BenchMarker
+  def initialize(app, runs = 100)
+    @app, @runs = app, runs
+  end
 
-map "/lobster/but_not" do
-  run proc {
-    [200, {}, ["Really not a lobster"]]
-  }
-end
+  def call(env)
+    t = Time.now
 
-run proc {
-  [200, {}, ["Not a lobster"]]
-}
+    result = nil
+    @runs.times { result = @app.call(env) }
+
+    t2 = Time.now - t
+    STDERR.puts <<OUTPUT
+BenchMark:
+ #{@runs} runs
+ #{t2.to_f} seconds total
+ #{t2.to_f * 1000.0 / @runs} millisec/run
+OUTPUT
+
+    result
+  end
+end
+use BenchMarker, 10_000
+run Rack::Lobster.new
+
+# map "/lobster" do
+#   use Rack::ShowExceptions
+#   run Rack::Lobster.new
+# end
+#
+# map "/lobster/but_not" do
+#   run proc {
+#     [200, {}, ["Really not a lobster"]]
+#   }
+# end
+#
+# run proc {
+#   [200, {}, ["Not a lobster"]]
+# }
+
 # INNER_LAYER = proc {
 #   "world!"
 # }
