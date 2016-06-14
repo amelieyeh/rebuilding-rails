@@ -1,8 +1,25 @@
 require './config/application'
+require 'rack/lobster'
 # require './config/bobo'
 # require './config/const_missing'
 run BestQuotes::Application.new
 
+use Rack::ContentType
+
+map "/lobster" do
+  use Rack::ShowExceptions
+  run Rack::Lobster.new
+end
+
+map "/lobster/but_not" do
+  run proc {
+    [200, {}, ["Really not a lobster"]]
+  }
+end
+
+run proc {
+  [200, {}, ["Not a lobster"]]
+}
 # INNER_LAYER = proc {
 #   "world!"
 # }
@@ -22,23 +39,24 @@ run BestQuotes::Application.new
 #    ["Hello, world!"]]
 # }
 
-class Canadianize
-  def initialize(app, arg = "")
-    @app = app
-    @arg = arg
-  end
+# class Canadianize
+#   def initialize(app, arg = "")
+#     @app = app
+#     @arg = arg
+#   end
+#
+#   def call(env)
+#     status, headers, content = @app.call(env)
+#     content[0] += @arg + ", eh?"
+#     [status, headers, content]
+#   end
+# end
 
-  def call(env)
-    status, headers, content = @app.call(env)
-    content[0] += @arg + ", eh?"
-    [status, headers, content]
-  end
-end
+# use Canadianize, ", simple"
+#
+# run proc {
+#   [200, {"Content-Type" => 'text/html'},
+#    ["Hello, world!"]]
+# }
 
-use Canadianize, ", simple"
-
-run proc {
-  [200, {"Content-Type" => 'text/html'},
-   ["Hello, world!"]]
-}
 
